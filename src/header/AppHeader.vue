@@ -1,18 +1,18 @@
 <template>
   <header>
-    <div class="logo">
-      <h1>Timeline Maker</h1>
-    </div>
-    <MainMenu />
+    <LogoHeader />
+    <MainMenu @exportFile="$emit('exportFile')" />
   </header>
 </template>
 
 <script>
+import LogoHeader from "./LogoHeader.vue";
 import MainMenu from "./MainMenu.vue";
 
 export default {
   name: "AppHeader",
   components: {
+    LogoHeader,
     MainMenu,
   },
 };
