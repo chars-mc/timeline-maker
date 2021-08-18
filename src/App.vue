@@ -1,18 +1,16 @@
 <template>
-  <AppHeader @exportFile="exportFileTo" />
+  <AppHeader />
 
   <div class="content">
-    <aside class="aside">
-      <EventForm @addNewEvent="addNewEvent" />
-    </aside>
-
-    <main class="main">Timeline content</main>
+    <EventForm @addNewEvent="addNewEvent" class="aside" />
+    <TimeLine :events="events" class="main" />
   </div>
 </template>
 
 <script>
 import AppHeader from "./header/AppHeader.vue";
 import EventForm from "./events/EventForm.vue";
+import TimeLine from "./timeline/TimeLine.vue";
 import "boxicons/css/boxicons.min.css";
 
 export default {
@@ -20,11 +18,22 @@ export default {
   components: {
     AppHeader,
     EventForm,
+    TimeLine,
+  },
+  data() {
+    return {
+      events: [],
+      ITEM_KEY: "timeline-maker-data",
+    };
   },
   methods: {
     addNewEvent(newEvent) {
-      console.log(newEvent);
+      this.events.push(newEvent);
+      localStorage.setItem(this.ITEM_KEY, JSON.stringify(this.events));
     },
+  },
+  beforeMount() {
+    this.events = JSON.parse(localStorage.getItem(this.ITEM_KEY)) || [];
   },
 };
 </script>
@@ -34,13 +43,26 @@ export default {
   box-sizing: border-box;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   max-width: 90%;
+  margin: 0 auto;
+}
+
+#app {
+  height: 100%;
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .content {
+  height: 100%;
   display: grid;
   grid-template-columns: 300px 1fr;
-  gap: 15px;
 }
 </style>
