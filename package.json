@@ -11,6 +11,7 @@
   "dependencies": {
     "boxicons": "^2.0.9",
     "core-js": "^3.6.5",
+    "mitt": "^3.0.0",
     "register-service-worker": "^1.7.1",
     "vue": "^3.0.0"
   },
