@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import EventCard from "./EventCard.vue";
+import EventCard from "../events/EventCard.vue";
 
 export default {
   name: "TimeLine",
