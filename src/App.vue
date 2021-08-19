@@ -11,6 +11,7 @@
 import AppHeader from "./header/AppHeader.vue";
 import EventForm from "./events/EventForm.vue";
 import TimeLine from "./timeline/TimeLine.vue";
+import { emitter } from "./helpers/eventEmitter";
 import "boxicons/css/boxicons.min.css";
 
 export default {
@@ -31,9 +32,19 @@ export default {
       this.events.push(newEvent);
       localStorage.setItem(this.ITEM_KEY, JSON.stringify(this.events));
     },
+    deleteEvent(id) {
+      console.log(`event to delete: ${id}`);
+    },
+    editEvent(id) {
+      console.log(`edit event: ${id}`);
+    },
   },
   beforeMount() {
     this.events = JSON.parse(localStorage.getItem(this.ITEM_KEY)) || [];
+  },
+  mounted() {
+    emitter.on("deleteEvent", this.deleteEvent);
+    emitter.on("editEvent", this.editEvent);
   },
 };
 </script>

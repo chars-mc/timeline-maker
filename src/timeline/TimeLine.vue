@@ -1,6 +1,11 @@
 <template>
   <div class="timeline">
-    <EventCard v-for="event of events" :event="event" :key="event.id" />
+    <EventCard
+      v-for="(event, i) of events"
+      :event="event"
+      :index="i"
+      :key="i"
+    />
   </div>
 </template>
 
