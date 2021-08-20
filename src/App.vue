@@ -33,7 +33,8 @@ export default {
       localStorage.setItem(this.ITEM_KEY, JSON.stringify(this.events));
     },
     deleteEvent(id) {
-      console.log(`event to delete: ${id}`);
+      this.events.splice(id, 1);
+      localStorage.setItem(this.ITEM_KEY, JSON.stringify(this.events));
     },
     editEvent(id) {
       console.log(`edit event: ${id}`);
@@ -74,6 +75,7 @@ body {
 .content {
   height: 100%;
   display: grid;
+  column-gap: 15px;
   grid-template-columns: 300px 1fr;
 }
 </style>
