@@ -14,6 +14,8 @@ import TimeLine from "./timeline/TimeLine.vue";
 import { emitter } from "./helpers/eventEmitter";
 import "boxicons/css/boxicons.min.css";
 
+import { computed } from "vue";
+
 export default {
   name: "App",
   components: {
@@ -25,6 +27,11 @@ export default {
     return {
       events: [],
       ITEM_KEY: "timeline-maker-data",
+    };
+  },
+  provide() {
+    return {
+      events: computed(() => this.events),
     };
   },
   methods: {
