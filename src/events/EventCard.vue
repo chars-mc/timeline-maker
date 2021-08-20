@@ -1,9 +1,12 @@
 <template>
   <div class="event-card">
     <img :src="event.image" :alt="event.name" class="event-card__image" />
-    <h3 class="event-card__name">{{ event.name }}</h3>
-    <time class="event-card__date">{{ event.date }}</time>
-    <p class="event-card__description">{{ event.description }}</p>
+    <EventDate :date="event.date" class="example" />
+
+    <div class="content">
+      <h3 class="event-card__name">{{ event.name }}</h3>
+      <p class="event-card__description">{{ event.description }}</p>
+    </div>
 
     <div class="event-card__actions">
       <button class="event-card__action-button danger" @click="emitDeleteEvent">
@@ -17,10 +20,14 @@
 </template>
 
 <script>
+import EventDate from "./EventDate.vue";
 import { emitter } from "../helpers/eventEmitter";
 
 export default {
   name: "EventCard",
+  components: {
+    EventDate,
+  },
   props: {
     event: {},
     index: Number,
@@ -38,23 +45,40 @@ export default {
 
 <style scoped>
 .event-card {
-  min-width: 250px;
-  max-height: 70%;
+  min-width: 350px;
+  max-width: 350px;
+  margin: 5px 0;
   padding: 5px;
-  margin: 10px 20px;
-  text-align: center;
-  border: 1px solid white;
   position: relative;
+  display: grid;
+  grid-template-rows: 200px 130px 1fr;
+  justify-items: center;
 }
 
 .event-card__image {
-  width: 100%;
-  height: 150px;
+  width: 80%;
+  height: 100%;
+  border-radius: 5px;
   object-fit: cover;
+  object-position: center;
+}
+
+.content {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .event-card:hover .event-card__actions {
   opacity: 1;
+}
+
+.event-card__name {
+  margin-top: 10px;
+}
+.event-card__description {
+  margin-top: 5px;
 }
 
 .event-card__actions {

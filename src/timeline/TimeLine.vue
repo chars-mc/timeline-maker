@@ -1,9 +1,9 @@
 <template>
   <div class="timeline">
     <EventCard
-      v-for="(event, i) of events"
       :event="event"
       :index="i"
+      v-for="(event, i) of events"
       :key="i"
     />
   </div>
@@ -23,9 +23,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .timeline {
-  width: 100%;
   display: flex;
   overflow-x: auto;
 }
