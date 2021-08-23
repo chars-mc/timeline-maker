@@ -1,10 +1,9 @@
 <template>
   <AppHeader />
 
-  <div class="content">
-    <!-- <button @click="exportFile">export</button> -->
+  <div class="content-main">
     <EventForm @addNewEvent="addNewEvent" class="aside" />
-    <TimeLine :events="events" class="main" />
+    <TimeLine :events="events" class="main" id="timelineHTML" />
   </div>
 </template>
 
@@ -13,6 +12,7 @@ import AppHeader from "./header/AppHeader.vue";
 import EventForm from "./events/EventForm.vue";
 import TimeLine from "./timeline/TimeLine.vue";
 import { emitter } from "./helpers/eventEmitter";
+import { getDocumentToPrint } from "./helpers/printTimeline";
 import "boxicons/css/boxicons.min.css";
 
 import { computed } from "vue";
@@ -50,6 +50,12 @@ export default {
     fileLoaded(events) {
       this.events = JSON.parse(events);
     },
+    exportFileToPDF() {
+      const doc = getDocumentToPrint(
+        document.getElementById("timelineHTML").innerHTML
+      );
+      doc.print();
+    },
   },
   beforeMount() {
     this.events = JSON.parse(localStorage.getItem(this.ITEM_KEY)) || [];
@@ -58,6 +64,7 @@ export default {
     emitter.on("deleteEvent", this.deleteEvent);
     emitter.on("editEvent", this.editEvent);
     emitter.on("fileLoaded", this.fileLoaded);
+    emitter.on("exportFile", this.exportFileToPDF);
   },
 };
 </script>
@@ -80,11 +87,11 @@ body {
 #app {
   height: 100%;
   padding-bottom: 10px;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: min-content minmax(500px, 1fr);
 }
 
-.content {
+.content-main {
   height: 100%;
   display: grid;
   column-gap: 15px;

@@ -8,7 +8,9 @@
         </button>
       </a>
       <button @click="importFile"><i class="bx bx-file"></i>Load</button>
-      <button><i class="bx bxs-file-export"></i> Export</button>
+      <button @click="exportFile">
+        <i class="bx bxs-file-export"></i> Export
+      </button>
 
       <a href="https://github.com/chars-mc/timeline-maker" target="_blank">
         <i class="bx bxl-github"></i>
@@ -52,6 +54,9 @@ export default {
       };
 
       input.click();
+    },
+    exportFile() {
+      emitter.emit("exportFile");
     },
   },
 };
