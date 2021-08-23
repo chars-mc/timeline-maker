@@ -9,10 +9,16 @@
     </div>
 
     <div class="event-card__actions">
-      <button class="event-card__action-button danger" @click="emitDeleteEvent">
+      <button
+        class="event-card__action-button danger"
+        @click="emitter.emit('deleteEvent', $props.index)"
+      >
         <i class="bx bxs-trash"></i>
       </button>
-      <button class="event-card__action-button warning" @click="emitEditEvent">
+      <button
+        class="event-card__action-button warning"
+        @click="emitter.emit('editEvent', $props.index)"
+      >
         <i class="bx bxs-edit"></i>
       </button>
     </div>
@@ -32,13 +38,10 @@ export default {
     event: {},
     index: Number,
   },
-  methods: {
-    emitDeleteEvent() {
-      emitter.emit("deleteEvent", this.$props.index);
-    },
-    emitEditEvent() {
-      emitter.emit("editEvent", this.$props.index);
-    },
+  data() {
+    return {
+      emitter,
+    };
   },
 };
 </script>

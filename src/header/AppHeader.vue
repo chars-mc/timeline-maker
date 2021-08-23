@@ -1,7 +1,7 @@
 <template>
   <header>
     <LogoHeader />
-    <MainMenu @exportFile="$emit('exportFile')" />
+    <MainMenu />
   </header>
 </template>
 

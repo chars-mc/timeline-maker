@@ -47,8 +47,22 @@ export default {
     editEvent(id) {
       console.log(`edit event: ${id}`);
     },
-    fileLoaded(events) {
-      this.events = JSON.parse(events);
+    loadFile() {
+      const input = document.createElement("input");
+      input.type = "file";
+      input.setAttribute("accept", "application/json");
+
+      input.onchange = () => {
+        let files = Array.from(input.files);
+        const reader = new FileReader();
+
+        reader.addEventListener("load", (e) => {
+          this.events = JSON.parse(e.target.result);
+        });
+        reader.readAsText(files[0]);
+      };
+
+      input.click();
     },
     exportFileToPDF() {
       const doc = getDocumentToPrint(
@@ -63,7 +77,7 @@ export default {
   mounted() {
     emitter.on("deleteEvent", this.deleteEvent);
     emitter.on("editEvent", this.editEvent);
-    emitter.on("fileLoaded", this.fileLoaded);
+    emitter.on("loadFile", this.loadFile);
     emitter.on("exportFile", this.exportFileToPDF);
   },
 };
