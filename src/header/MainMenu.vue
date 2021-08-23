@@ -7,7 +7,7 @@
           Save
         </button>
       </a>
-      <button><i class="bx bx-file"></i>Load</button>
+      <button @click="importFile"><i class="bx bx-file"></i>Load</button>
       <button><i class="bx bxs-file-export"></i> Export</button>
 
       <a href="https://github.com/chars-mc/timeline-maker" target="_blank">
@@ -17,6 +17,8 @@
   </nav>
 </template>
 <script>
+import { emitter } from "../helpers/eventEmitter";
+
 export default {
   name: "MainMenu",
   data() {
@@ -31,6 +33,25 @@ export default {
         "data:text/plain;charset=utf-8," +
         encodeURIComponent(JSON.stringify(this.events.value))
       );
+    },
+  },
+  methods: {
+    importFile() {
+      const input = document.createElement("input");
+      input.type = "file";
+      input.setAttribute("accept", "application/json");
+
+      input.onchange = () => {
+        let files = Array.from(input.files);
+        const reader = new FileReader();
+
+        reader.addEventListener("load", (e) => {
+          emitter.emit("fileLoaded", e.target.result);
+        });
+        reader.readAsText(files[0]);
+      };
+
+      input.click();
     },
   },
 };

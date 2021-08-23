@@ -2,6 +2,7 @@
   <AppHeader />
 
   <div class="content">
+    <!-- <button @click="exportFile">export</button> -->
     <EventForm @addNewEvent="addNewEvent" class="aside" />
     <TimeLine :events="events" class="main" />
   </div>
@@ -46,6 +47,9 @@ export default {
     editEvent(id) {
       console.log(`edit event: ${id}`);
     },
+    fileLoaded(events) {
+      this.events = JSON.parse(events);
+    },
   },
   beforeMount() {
     this.events = JSON.parse(localStorage.getItem(this.ITEM_KEY)) || [];
@@ -53,6 +57,7 @@ export default {
   mounted() {
     emitter.on("deleteEvent", this.deleteEvent);
     emitter.on("editEvent", this.editEvent);
+    emitter.on("fileLoaded", this.fileLoaded);
   },
 };
 </script>
