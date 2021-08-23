@@ -54,33 +54,29 @@ time {
   border: 3px solid #fac29a;
   border-radius: 100%;
   background-color: #1a1c23;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-time {
-  position: relative;
+
+time::before,
+time::after {
+  content: " ";
+  width: 110%;
+  height: 5px;
+  display: block;
+  background: #fab795;
+  top: 50%;
+  position: absolute;
+  z-index: -1;
 }
 
 time::after {
-  content: " ";
-  display: block;
-  position: absolute;
-  height: 5px;
-  background: #fab795;
-  width: 100%;
   left: 100%;
-  top: calc(50% - 2px);
 }
 
 time::before {
-  content: " ";
-  display: block;
-  position: absolute;
-  height: 5px;
-  background: #fab795;
-  width: 110%;
   right: 100%;
-  top: calc(50% - 2px);
 }
 </style>

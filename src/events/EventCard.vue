@@ -74,9 +74,7 @@ export default {
   opacity: 1;
 }
 
-.event-card__name {
-  margin-top: 10px;
-}
+.event-card__name,
 .event-card__description {
   margin-top: 5px;
 }
@@ -87,11 +85,6 @@ export default {
   position: absolute;
   top: 10px;
   right: 10px;
-}
-.event-card__action-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .danger {

@@ -63,6 +63,10 @@ export default {
 </script>
 
 <style scoped>
+button {
+  margin: 10px 5px;
+}
+
 i {
   margin-right: 5px;
 }

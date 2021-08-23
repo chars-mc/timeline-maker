@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h1><i class="bx bx-time-five"></i>Timeline Maker</h1>
+    <h1>
+      <i class="bx bx-time-five"></i>
+      Timeline Maker
+    </h1>
   </div>
 </template>
 
@@ -11,7 +14,7 @@ export default {
 </script>
 
 <style scoped>
-i {
-  margin: 10px;
+h1 {
+  margin: 10px 5px;
 }
 </style>
