@@ -1,8 +1,8 @@
 <template>
   <time>
-    {{ getDay }}<br />
-    {{ getMonth }}<br />
-    {{ getYear }}
+    <template v-if="date.day !== 0"> {{ date.day }} <br /> </template>
+    <template v-if="date.month !== 0"> {{ getMonth }} <br /> </template>
+    {{ date.year }}
   </time>
 </template>
 
@@ -27,19 +27,12 @@ export default {
       ],
     };
   },
-
   props: {
-    date: String,
+    date: Object,
   },
   computed: {
-    getDay() {
-      return this.$props.date.split("-")[2];
-    },
     getMonth() {
-      return this.MONTHS[Number.parseInt(this.$props.date.split("-")[1] - 1)];
-    },
-    getYear() {
-      return this.$props.date.split("-")[0];
+      return this.MONTHS[this.$props.date.month - 1];
     },
   },
 };

@@ -2,7 +2,10 @@
   <AppHeader />
 
   <div class="content-main">
-    <EventForm @addNewEvent="addNewEvent" class="aside" />
+    <aside class="aside">
+      <EventForm @addNewEvent="addNewEvent" @error="showError" class="aside" />
+      <ErrorCard v-if="error !== ''" :errorMessage="error" />
+    </aside>
     <TimeLine :events="events" class="main" id="timelineHTML" />
   </div>
 </template>
@@ -11,6 +14,7 @@
 import AppHeader from "./header/AppHeader.vue";
 import EventForm from "./events/EventForm.vue";
 import TimeLine from "./timeline/TimeLine.vue";
+import ErrorCard from "./components/ErrorCard.vue";
 import { emitter } from "./helpers/eventEmitter";
 import { getDocumentToPrint } from "./helpers/printTimeline";
 import "boxicons/css/boxicons.min.css";
@@ -23,11 +27,13 @@ export default {
     AppHeader,
     EventForm,
     TimeLine,
+    ErrorCard,
   },
   data() {
     return {
       events: [],
       ITEM_KEY: "timeline-maker-data",
+      error: "",
     };
   },
   provide() {
@@ -69,6 +75,13 @@ export default {
         document.getElementById("timelineHTML").innerHTML
       );
       doc.print();
+    },
+    showError(msg) {
+      this.error = msg;
+
+      setTimeout(() => {
+        this.error = "";
+      }, 3500);
     },
   },
   beforeMount() {
