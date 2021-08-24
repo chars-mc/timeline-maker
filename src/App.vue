@@ -50,9 +50,6 @@ export default {
       this.events.splice(id, 1);
       localStorage.setItem(this.ITEM_KEY, JSON.stringify(this.events));
     },
-    editEvent(id) {
-      console.log(`edit event: ${id}`);
-    },
     loadFile() {
       const input = document.createElement("input");
       input.type = "file";
@@ -76,6 +73,10 @@ export default {
       );
       doc.print();
     },
+    saveEditedEvent({ editedEvent, index }) {
+      this.events[index] = editedEvent;
+      localStorage.setItem(this.ITEM_KEY, JSON.stringify(this.events));
+    },
     showError(msg) {
       this.error = msg;
 
@@ -89,9 +90,9 @@ export default {
   },
   mounted() {
     emitter.on("deleteEvent", this.deleteEvent);
-    emitter.on("editEvent", this.editEvent);
     emitter.on("loadFile", this.loadFile);
     emitter.on("exportFile", this.exportFileToPDF);
+    emitter.on("saveEditedEvent", this.saveEditedEvent);
   },
 };
 </script>

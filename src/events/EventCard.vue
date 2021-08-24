@@ -11,13 +11,18 @@
     <div class="event-card__actions">
       <button
         class="event-card__action-button danger"
-        @click="emitter.emit('deleteEvent', $props.index)"
+        @click="emitter.emit('deleteEvent', index)"
       >
         <i class="bx bxs-trash"></i>
       </button>
       <button
         class="event-card__action-button warning"
-        @click="emitter.emit('editEvent', $props.index)"
+        @click="
+          emitter.emit('editEvent', {
+            eventToEdit: JSON.parse(JSON.stringify(event)),
+            index,
+          })
+        "
       >
         <i class="bx bxs-edit"></i>
       </button>
