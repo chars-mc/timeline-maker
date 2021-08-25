@@ -45,10 +45,12 @@ export default {
     addNewEvent(newEvent) {
       this.events.push(newEvent);
       localStorage.setItem(this.ITEM_KEY, JSON.stringify(this.events));
+      this.sortEvents();
     },
     deleteEvent(id) {
       this.events.splice(id, 1);
       localStorage.setItem(this.ITEM_KEY, JSON.stringify(this.events));
+      this.sortEvents();
     },
     loadFile() {
       const input = document.createElement("input");
@@ -61,6 +63,7 @@ export default {
 
         reader.addEventListener("load", (e) => {
           this.events = JSON.parse(e.target.result);
+          this.sortEvents();
         });
         reader.readAsText(files[0]);
       };
@@ -76,6 +79,15 @@ export default {
     saveEditedEvent({ editedEvent, index }) {
       this.events[index] = editedEvent;
       localStorage.setItem(this.ITEM_KEY, JSON.stringify(this.events));
+      this.sortEvents();
+    },
+    // FIXME: change the event.date object to a Date
+    sortEvents() {
+      this.events.sort(
+        (a, b) =>
+          new Date(Object.values(a.date).reverse().join("-")) -
+          new Date(Object.values(b.date).reverse().join("-"))
+      );
     },
     showError(msg) {
       this.error = msg;
@@ -87,6 +99,7 @@ export default {
   },
   beforeMount() {
     this.events = JSON.parse(localStorage.getItem(this.ITEM_KEY)) || [];
+    this.sortEvents();
   },
   mounted() {
     emitter.on("deleteEvent", this.deleteEvent);
