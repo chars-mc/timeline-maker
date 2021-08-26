@@ -29,7 +29,7 @@
     </button>
 
     <div class="editButtons" v-else>
-      <button class="cancel-btn" @click="setDataDefaultValues">
+      <button class="cancel-btn" @click="setDefaultDataValues">
         <i class="bx bx-x-circle"></i>
         CANCEL
       </button>
