@@ -1,6 +1,9 @@
 # Timeline Maker
 
 A simple tool to make timelines and export them as JSON or PDF.
+
+[Click here to try it!](https://chars-mc.github.io/timeline-maker/)
+
 ![](/docs/screenshoot.png)
 
 ## Project setup
